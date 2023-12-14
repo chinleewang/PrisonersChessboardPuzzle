@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+table {
+  border: 2px solid;
+}
+th, td {
+  border-collapse: collapse;
+  height: 100px;
+  width: 100px;
+}
+.pngcontainer1 {
+  background-image: url(images/foreground1.png), url(images/dlbg.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+</style>
+<script>
+var coinH = "<img src='images/foreground1.png' alt='H' width='80' height='80'>";
+var coinT = "<img src='images/dlbg.png' alt='T' width='80' height='80'>";
+function flipCoin(obj) {
+  if (obj.innerHTML.src == 'images/foreground1.png') 
+    obj.innerHTML = coinT;
+  else
+    obj.innerHTML = "<div class='pngcontainer1'></div>";
+}
+</script>
+</head>
+
+<body>
+<h2>Board</h2>
+
+<table id="board"></table>
+
+<script>
+
+let table = document.getElementById("board"),
+    size = 8;
+
+table.style.backgroundColor = "beige";
+for (let i = 0; i < size; i++) {
+  let row = table.insertRow();
+  for (let j = 0; j < size; j++) {
+    let cell = row.insertCell();
+    cell.style.alignSelf = "center";
+    cell.style.verticalAlign = "middle";
+    if ((i + j) % 2 == 0) {
+      cell.style.backgroundColor = "tan";
+    }
+    cell.innerHTML = coinT;
+    cell.onclick = function() {flipCoin(this)};
+  }
+}
+
+</script>
+
+</body>
+
+</html>
