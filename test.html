@@ -37,20 +37,26 @@ th, td {
   width: 100px;
   height: 100px;
 }
-  
+
 </style>
 
 <script>
-  
-//var coinH = "<img src='images/foreground1.png' alt='H' width='80' height='80'>";
-//var coinT = "<img src='images/dlbg.png' alt='T' width='80' height='80'>";
-var coinH = "<div class='pngcontainer1'></div>";
-var coinT = "<div class='pngcontainerT'></div>";
-function flipCoin(obj) {
-  if (obj.innerHTML.src == 'images/foreground1.png') 
-    obj.innerHTML = coinT;
+
+var coinHead = "<div class='pngcontainerH'></div>";
+var coinTail = "<div class='pngcontainerT'></div>";
+function updateSquareImage(obj) {
+  //obj.innerHTML = obj.dataset.coin;
+  if (obj.dataset.coin == "head")
+    obj.innerHTML = coinHead;
   else
-    obj.innerHTML = "<div class='pngcontainer1'></div>";
+    obj.innerHTML = coinTail;
+}  
+function flipCoin(obj) {
+  if (obj.dataset.coin == "head") 
+    obj.dataset.coin = "tail";
+  else
+   obj.dataset.coin = "head";
+  updateSquareImage(obj);
 }
   
 </script>
@@ -60,6 +66,8 @@ function flipCoin(obj) {
 <body>
 
 <h2>Prisoner's Chessboard</h2>
+
+<table id="board"></table>
 
 <script>
 
@@ -76,7 +84,8 @@ for (let i = 0; i < size; i++) {
     if ((i + j) % 2 == 0) {
       cell.style.backgroundColor = "tan";
     }
-    cell.innerHTML = coinT;
+    cell.dataset.coin = "head";
+    updateSquareImage(cell);
     cell.onclick = function() {flipCoin(this)};
   }
 }
