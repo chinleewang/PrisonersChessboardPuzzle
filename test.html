@@ -2,7 +2,9 @@
 <html>
 
 <head>
+  
 <style>
+  
 table {
   border: 2px solid;
 }
@@ -19,24 +21,45 @@ th, td {
   width: 100px;
   height: 100px;
 }
+.pngcontainerH {
+  background-image: url(images/foreground1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.pngcontainerT {
+  background-image: url(images/dlbg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+  
 </style>
+
 <script>
-var coinH = "<img src='images/foreground1.png' alt='H' width='80' height='80'>";
-var coinT = "<img src='images/dlbg.png' alt='T' width='80' height='80'>";
+  
+//var coinH = "<img src='images/foreground1.png' alt='H' width='80' height='80'>";
+//var coinT = "<img src='images/dlbg.png' alt='T' width='80' height='80'>";
+var coinH = "<div class='pngcontainerH'></div>";
+var coinT = "<div class='pngcontainerT'></div>";
 function flipCoin(obj) {
   if (obj.innerHTML.src == 'images/foreground1.png') 
     obj.innerHTML = coinT;
   else
     obj.innerHTML = "<div class='pngcontainer1'></div>";
 }
+  
 </script>
+
 </head>
 
 <body>
-<h2>Prisoner's Chessboard</h2>
 
-<p>this is a test</p>
-<table id="board"></table>
+<h2>Prisoner's Chessboard</h2>
 
 <script>
 
