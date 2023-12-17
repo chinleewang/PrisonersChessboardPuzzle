@@ -49,14 +49,14 @@ th, td {
   width: 100px;
   height: 100px;
 }
-.classDefault {
+.bgDefault {
   background-color: lightblue;
 }
-.classPrison {
+.bgPrison {
   background-color: lightblue;
   background-image: url("images/prison.png");
 }
-.classGetOutOfJail {
+.bgGetOutOfJail {
   background-color: lightblue;
   background-image: url("images/getoutofjail.png");
 }
@@ -132,12 +132,9 @@ function updateAllSquareImages() {
     }
   }
 }
-function gameEnd(getOutOfJail) {
-  background = document.getElementById("background");
-  if (getOutOfJail)
-    background.className = 'classGetOutOfJail';
-  else
-    background.className = 'classPrison';   
+function setGameBackground(bgClass) {
+  gameBackground = document.getElementById("background");
+  gameBackground.className = bgClass;
 }
 function flipCoin(obj) {
   if (clickAction == "flipCoin") {
@@ -154,10 +151,10 @@ function flipCoin(obj) {
   else if (clickAction == "idKey") {
     if ((keyLocation.x == obj.dataset.x) && (keyLocation.y == obj.dataset.y)) {
       keyVisibility = true;
-      gameEnd(true);
+      setGameBackground("bgGetOutOfJail");
     }
     else {
-      gameEnd(false);
+      setGameBackground("bgPrison");
     }
   }
   updateSquareImage(obj);
@@ -197,6 +194,7 @@ function setMode() {
   keyVisibility = modes[mode].keyVisibility;
   if (!keyVisibility)
     updateAllSquareImages();
+  setGameBackground("bgDefault");
 }
 function nextMode() {
   mode++;
