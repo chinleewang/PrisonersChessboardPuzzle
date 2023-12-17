@@ -17,14 +17,6 @@ table {
 th, td {
   border-collapse: collapse;
 }
-.pngcontainer1 {
-  background-image: url(images/key.png), url(images/heads.png);
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  background-size: 80px 80px;
-  width: 100px;
-  height: 100px;
-}
 .pngcontainerHeads {
   background-image: url(images/heads.png);
   background-position: center;
@@ -41,10 +33,31 @@ th, td {
   width: 100px;
   height: 100px;
 }
-.pngcontainerPrison {
+.pngcontainerHeadsKey {
+  background-image: url(images/key.png), url(images/heads.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.pngcontainerTailsKey {
+  background-image: url(images/key.png), url(images/tails.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.classDefault {
+  background-color: lightblue;
+}
+.classPrison {
+  background-color: lightblue;
   background-image: url("images/prison.png");
 }
-.pngcontainerGetOutOfJail {
+.classGetOutOfJail {
+  background-color: lightblue;
   background-image: url("images/getoutofjail.png");
 }
 
@@ -58,31 +71,140 @@ th, td {
 //document.head.appendChild(style);
 //style.sheet.append(".pngcontainerGetOutOfJail { background-image: url('images/getoutofjail.png'); }");
 
-var role = "warden";
+var size = 4;
+var board = [];
+var mode = 0;
 var clickAction = "flipCoin";
-var coinHeads = "<div class='pngcontainer1'></div>";
+var keyVisibility = "true";
+var keyLocation = {x:-1, y:-1};
+const modes = 
+  [
+    {mode:"Warden Flipping Coins",
+     instructions:"Click to flip coins",
+     prev:"N/A",
+     next:"Switch to Setting Key",
+     clickAction:"flipCoin",
+     keyVisibility:true},
+    {mode:"Warden Setting Key",
+     instructions:"Click to set key",
+     prev:"Switch to Flipping Coins",
+     next:"Switch to Prisoner A",
+     clickAction:"setKey",
+     keyVisibility:true},
+    {mode:"Prisoner A",
+     instructions:"Click to flip coin",
+     prev:"Switch to Warden",
+     next:"Switch to Prisoner B",
+     clickAction:"flipCoin",
+     keyVisibility:true},
+    {mode:"Prisoner B",
+     instructions:"Click to identify key",
+     prev:"Switch to Prisoner A",
+     next:"N/A",
+     clickAction:"idKey",
+     keyVisibility:false}
+  ];
+var coinHeads = "<div class='pngcontainerHeads'></div>";
 var coinTails = "<div class='pngcontainerTails'></div>";
+var coinHeadsKey = "<div class='pngcontainerHeadsKey'></div>";
+var coinTailsKey = "<div class='pngcontainerTailsKey'></div>";
 function updateSquareImage(obj) {
-  //obj.innerHTML = obj.dataset.coin;
-  if (obj.dataset.coin == "heads")
-    obj.innerHTML = coinHeads;
+  if ((keyVisibility == true) && 
+      (obj.dataset.x == keyLocation.x) && 
+      (obj.dataset.y == keyLocation.y)) {
+    if (obj.dataset.coin == "heads")
+      obj.innerHTML = coinHeadsKey;
+    else
+      obj.innerHTML = coinTailsKey;
+  }
+  else {
+    if (obj.dataset.coin == "heads")
+      obj.innerHTML = coinHeads;
+    else
+      obj.innerHTML = coinTails;
+  }
+}
+function updateAllSquareImages() {
+  //let board = document.getElementById("board"); //doesn't work
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      updateSquareImage(board[i][j]);
+    }
+  }
+}
+function gameEnd(getOutOfJail) {
+  background = document.getElementById("background");
+  if (getOutOfJail)
+    background.className = 'classGetOutOfJail';
   else
-    obj.innerHTML = coinTails;
-}  
+    background.className = 'classPrison';   
+}
 function flipCoin(obj) {
-  if (obj.dataset.coin == "heads") 
-    obj.dataset.coin = "tails";
-  else
-   obj.dataset.coin = "heads";
+  if (clickAction == "flipCoin") {
+    if (obj.dataset.coin == "heads") 
+      obj.dataset.coin = "tails";
+    else
+      obj.dataset.coin = "heads";
+  }
+  else if (clickAction == "setKey") {
+    keyLocation.x = obj.dataset.x;
+    keyLocation.y = obj.dataset.y;
+    updateAllSquareImages();
+  }
+  else if (clickAction == "idKey") {
+    if ((keyLocation.x == obj.dataset.x) && (keyLocation.y == obj.dataset.y)) {
+      keyVisibility = true;
+      gameEnd(true);
+    }
+    else {
+      gameEnd(false);
+    }
+  }
   updateSquareImage(obj);
 }
-function switchToKeySetting(obj) {
-  obj.innerHTML = "Switch to Coin Flipping";
-  document.getElementById("instructions").innerHTML = "Click square to set key";
+function setMode() {
+  if (mode < 0)
+    mode = 0;
+  else if (mode >= modes.length)
+    mode = modes.length - 1;
+  let modeText = document.getElementById("mode");
+  let instructionsText = document.getElementById("instructions");
+  let prevText = document.getElementById("prev");
+  let prevArrow = document.getElementById("prevArrow");
+  let nextArrow = document.getElementById("nextArrow");
+  let nextText = document.getElementById("next");
+  modeText.innerHTML = modes[mode].mode;
+  instructionsText.innerHTML = modes[mode].instructions;
+  prevText.innerHTML = modes[mode].prev;
+  if (modes[mode].prev == "N/A") {
+    prevText.style.display = "none";
+    prevArrow.style.display = "none";
+  }
+  else {
+    prevText.style.display = "initial";
+    prevArrow.style.display = "initial";
+  }
+  nextText.innerHTML = modes[mode].next;
+  if (modes[mode].next == "N/A") {
+    nextText.style.display = "none";
+    nextArrow.style.display = "none";
+  }
+  else {
+    nextText.style.display = "initial";
+    nextArrow.style.display = "initial";
+  }
+  clickAction = modes[mode].clickAction;
+  keyVisibility = modes[mode].keyVisibility;
+  if (!keyVisibility)
+    updateAllSquareImages();
 }
-function switchToCoinFlipping(obj) {
-  obj.innerHTML = "Switch to Key Setting";
-  document.getElementById("instructions").innerHTML = "Click squares to flip coins";
+function nextMode() {
+  mode++;
+  setMode();
+}
+function prevMode() {
+  mode--;
+  setMode();
 }
   
 </script>
@@ -93,7 +215,10 @@ function switchToCoinFlipping(obj) {
 
 <center><h1>Prisoner's Chessboard</h1></center>
 
-<div class='pngcontainerGetOutOfJail'>
+<div id="background" class="classDefault">
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <center><table id="board"></table></center>
 
@@ -101,14 +226,15 @@ function switchToCoinFlipping(obj) {
 
 <center>
   <table style="overflow-x:auto" bgcolor="beige">
-    <tr><td><center><h3 id="mode">Warden's View</h3></center></td></tr>
-    <tr><td><center id="instructions">Click squares to flip coins</center></td></tr>
+    <tr><td><center><h3 id="mode">mode</h3></center></td></tr>
     <tr><td><center>
-      <table id="buttons" style="border:0px">
+      <table style="border:0px">
         <tr>
-          <td style="width:160px"><button onclick="switchToPrisonerA(this)">Switch to Prisoner A</button></td>
-          <td style="width:160px"><button onclick="switchToKeySetting(this)">Switch to Key Setting</button></td>
-          <td style="width:160px"><button onclick="switchToCoinFlipping(this)">Switch to Coin Flipping</button></td>
+          <td><button onclick="prevMode()" id="prev">prevText</button></td>
+          <td><p onclick="prevMode()" style="font-size:24px;" id="prevArrow">&#8678;</p></td>
+          <td><b id="instructions">instructions</b></td>
+          <td><p onclick="nextMode()" style="font-size:24px;" id="nextArrow">&#8680;</p></td>
+          <td><button onclick="nextMode()" id="next">nextText</button></td>
         </tr>
       </table>
     </center></td></tr>
@@ -122,24 +248,31 @@ function switchToCoinFlipping(obj) {
 
 <script>
 
-let table = document.getElementById("board"),
-    size = 4;
+let table = document.getElementById("board");
 
 table.style.backgroundColor = "beige";
 for (let i = 0; i < size; i++) {
   let row = table.insertRow();
+  board.push([]);
   for (let j = 0; j < size; j++) {
     let cell = row.insertCell();
+    board[i].push(cell);
     cell.style.alignSelf = "center";
     cell.style.verticalAlign = "middle";
     if ((i + j) % 2 == 0) {
       cell.style.backgroundColor = "tan";
     }
     cell.dataset.coin = "heads";
+    cell.dataset.x = i;
+    cell.dataset.y = j;
     updateSquareImage(cell);
     cell.onclick = function() {flipCoin(this)};
   }
 }
+
+//updateAllSquareImages();
+mode = 0;
+setMode();
 
 </script>
 
