@@ -8,7 +8,7 @@
 <style id="gameStyle" type="text/css">
 
 body {
-  background-color: lightblue;
+  background-color: #8096b1;
   font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 table {
@@ -37,7 +37,7 @@ th, td {
   background-image: url(images/key.png), url(images/heads.png);
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
-  background-size: 80px 80px;
+  background-size: 90px 90px, 80px 80px;
   width: 100px;
   height: 100px;
 }
@@ -45,19 +45,19 @@ th, td {
   background-image: url(images/key.png), url(images/tails.png);
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
-  background-size: 80px 80px;
+  background-size: 90px 90px, 80px 80px;
   width: 100px;
   height: 100px;
 }
 .bgDefault {
-  background-color: lightblue;
+  background-color: #8096b1;
 }
 .bgPrison {
-  background-color: lightblue;
+  background-color: #8096b1;
   background-image: url("images/prison.png");
 }
 .bgGetOutOfJail {
-  background-color: lightblue;
+  background-color: #8096b1;
   background-image: url("images/getoutofjail.png");
 }
 
@@ -136,7 +136,7 @@ function setGameBackground(bgClass) {
   gameBackground = document.getElementById("background");
   gameBackground.className = bgClass;
 }
-function flipCoin(obj) {
+function clickSquare(obj) {  //change name for all click actions
   if (clickAction == "flipCoin") {
     if (obj.dataset.coin == "heads") 
       obj.dataset.coin = "tails";
@@ -225,7 +225,7 @@ function prevMode() {
 <p>&nbsp;</p>
 
 <center>
-  <table style="overflow-x:auto" bgcolor="beige">
+  <table style="overflow-x:auto" bgcolor="burlywood">
     <tr><td><center><h3 id="mode">mode</h3></center></td></tr>
     <tr><td><center>
       <table style="border:0px">
@@ -250,7 +250,7 @@ function prevMode() {
 
 let table = document.getElementById("board");
 
-table.style.backgroundColor = "beige";
+table.style.backgroundColor = "burlywood";
 for (let i = 0; i < size; i++) {
   let row = table.insertRow();
   board.push([]);
@@ -260,13 +260,13 @@ for (let i = 0; i < size; i++) {
     cell.style.alignSelf = "center";
     cell.style.verticalAlign = "middle";
     if ((i + j) % 2 == 0) {
-      cell.style.backgroundColor = "tan";
+      cell.style.backgroundColor = "saddlebrown";
     }
     cell.dataset.coin = "heads";
     cell.dataset.x = i;
     cell.dataset.y = j;
     updateSquareImage(cell);
-    cell.onclick = function() {flipCoin(this)};
+    cell.onclick = function() {clickSquare(this)};
   }
 }
 
