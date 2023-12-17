@@ -152,9 +152,11 @@ function flipCoin(obj) {
     if ((keyLocation.x == obj.dataset.x) && (keyLocation.y == obj.dataset.y)) {
       keyVisibility = true;
       setGameBackground("bgGetOutOfJail");
+      document.getElementById("mode").innerHTML="Get Out Of Jail"
     }
     else {
       setGameBackground("bgPrison");
+      document.getElementById("mode").innerHTML="Go Back To Your Cell"
     }
   }
   updateSquareImage(obj);
