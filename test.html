@@ -21,25 +21,25 @@ th, td {
   background-image: url(images/key.png), url(images/heads.png);
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
-  background-size: 100px 100px;
-  width: 130px;
-  height: 130px;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
 }
 .pngcontainerHeads {
   background-image: url(images/heads.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100px 100px;
-  width: 130px;
-  height: 130px;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
 }
 .pngcontainerTails {
   background-image: url(images/tails.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100px 100px;
-  width: 130px;
-  height: 130px;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
 }
 .pngcontainerPrison {
   background-image: url("images/prison.png");
@@ -58,7 +58,8 @@ th, td {
 //document.head.appendChild(style);
 //style.sheet.append(".pngcontainerGetOutOfJail { background-image: url('images/getoutofjail.png'); }");
 
-
+var role = "warden";
+var clickAction = "flipCoin";
 var coinHeads = "<div class='pngcontainer1'></div>";
 var coinTails = "<div class='pngcontainerTails'></div>";
 function updateSquareImage(obj) {
@@ -75,6 +76,14 @@ function flipCoin(obj) {
    obj.dataset.coin = "heads";
   updateSquareImage(obj);
 }
+function switchToKeySetting(obj) {
+  obj.innerHTML = "Switch to Coin Flipping";
+  document.getElementById("instructions").innerHTML = "Click square to set key";
+}
+function switchToCoinFlipping(obj) {
+  obj.innerHTML = "Switch to Key Setting";
+  document.getElementById("instructions").innerHTML = "Click squares to flip coins";
+}
   
 </script>
 
@@ -88,21 +97,26 @@ function flipCoin(obj) {
 
 <center><table id="board"></table></center>
 
-<p></p>
+<p>&nbsp;</p>
 
 <center>
-  <table id="buttons" style="overflow-x:auto" style="width:100%" bgcolor="beige">
-    <tr style="height:50px">
-      <td><h3>Warden's View</h3></td>
-      <td>Clip squares to flip coins</td>
-    </tr>
-    <tr style="height:50px">
-      <td style="width:200px"><button onclick="displayDate()">Switch to Prisoner A</button></td>
-      <td style="width:200px"><button onclick="displayDate()">Switch to Key Setting</button></td>
-      <td style="width:200px"><button onclick="displayDate()">Switch to Coin Flipping</button></td>
-    </tr>
+  <table style="overflow-x:auto" bgcolor="beige">
+    <tr><td><center><h3 id="mode">Warden's View</h3></center></td></tr>
+    <tr><td><center id="instructions">Click squares to flip coins</center></td></tr>
+    <tr><td><center>
+      <table id="buttons" style="border:0px">
+        <tr>
+          <td style="width:160px"><button onclick="switchToPrisonerA(this)">Switch to Prisoner A</button></td>
+          <td style="width:160px"><button onclick="switchToKeySetting(this)">Switch to Key Setting</button></td>
+          <td style="width:160px"><button onclick="switchToCoinFlipping(this)">Switch to Coin Flipping</button></td>
+        </tr>
+      </table>
+    </center></td></tr>
   </table>
 </center>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 </div>
 
