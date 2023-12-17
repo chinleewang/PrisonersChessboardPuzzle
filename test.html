@@ -2,60 +2,77 @@
 <html>
 
 <head>
-  
-<style>
-  
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style id="gameStyle" type="text/css">
+
+body {
+  background-color: lightblue;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
 table {
   border: 2px solid;
 }
 th, td {
   border-collapse: collapse;
-  //height: 100px;
-  //width: 100px;
 }
 .pngcontainer1 {
-  background-image: url(images/foreground1.png), url(images/dlbg.png);
+  background-image: url(images/key.png), url(images/heads.png);
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
   background-size: 160px 160px;
   width: 200px;
   height: 200px;
 }
-.pngcontainerH {
-  background-image: url(images/foreground1.png);
+.pngcontainerHeads {
+  background-image: url(images/heads.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 160px 160px;
   width: 200px;
   height: 200px;
 }
-.pngcontainerT {
-  background-image: url(images/dlbg.png);
+.pngcontainerTails {
+  background-image: url(images/tails.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 160px 160px;
   width: 200px;
   height: 200px;
+}
+.pngcontainerPrison {
+  background-image: url("images/prison.png");
+}
+.pngcontainerGetOutOfJail {
+  background-image: url("images/getoutofjail.png");
 }
 
 </style>
 
 <script>
 
-var coinHead = "<div class='pngcontainerH'></div>";
-var coinTail = "<div class='pngcontainerT'></div>";
+// not working
+//var style = document.getElementById("gameStyle")
+//var style = document.createElement("style");
+//document.head.appendChild(style);
+//style.sheet.append(".pngcontainerGetOutOfJail { background-image: url('images/getoutofjail.png'); }");
+
+
+var coinHeads = "<div class='pngcontainer1'></div>";
+var coinTails = "<div class='pngcontainerTails'></div>";
 function updateSquareImage(obj) {
   //obj.innerHTML = obj.dataset.coin;
-  if (obj.dataset.coin == "head")
-    obj.innerHTML = coinHead;
+  if (obj.dataset.coin == "heads")
+    obj.innerHTML = coinHeads;
   else
-    obj.innerHTML = coinTail;
+    obj.innerHTML = coinTails;
 }  
 function flipCoin(obj) {
-  if (obj.dataset.coin == "head") 
-    obj.dataset.coin = "tail";
+  if (obj.dataset.coin == "heads") 
+    obj.dataset.coin = "tails";
   else
-   obj.dataset.coin = "head";
+   obj.dataset.coin = "heads";
   updateSquareImage(obj);
 }
   
@@ -65,9 +82,29 @@ function flipCoin(obj) {
 
 <body>
 
-<h2>Prisoner's Chessboard</h2>
+<center><h1>Prisoner's Chessboard</h1></center>
 
-<table id="board"></table>
+<div class='pngcontainerGetOutOfJail'>
+
+<center><table id="board"></table></center>
+
+<p></p>
+
+<center>
+  <table id="buttons" style="overflow-x:auto" style="width:100%" bgcolor="beige">
+    <tr style="height:50px">
+      <td><h3>Warden's View</h3></td>
+      <td>Clip squares to flip coins</td>
+    </tr>
+    <tr style="height:50px">
+      <td style="width:200px"><button onclick="displayDate()">Switch to Prisoner A</button></td>
+      <td style="width:200px"><button onclick="displayDate()">Switch to Key Setting</button></td>
+      <td style="width:200px"><button onclick="displayDate()">Switch to Coin Flipping</button></td>
+    </tr>
+  </table>
+</center>
+
+</div>
 
 <script>
 
@@ -84,7 +121,7 @@ for (let i = 0; i < size; i++) {
     if ((i + j) % 2 == 0) {
       cell.style.backgroundColor = "tan";
     }
-    cell.dataset.coin = "head";
+    cell.dataset.coin = "heads";
     updateSquareImage(cell);
     cell.onclick = function() {flipCoin(this)};
   }
