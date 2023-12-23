@@ -1,0 +1,72 @@
+:root {
+  --bgcolor: #8096b1;
+  --tabcolor1: #c8102e;
+  --tabcolor2: #012169;
+  --tilesize: 100px;
+  --keysize: 95px;
+  --coinsize: 80px;
+}
+
+body {
+  background-color: var(--bgcolor);
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+table {
+  border: 2px solid;
+  background-color: var(--tabcolor1);
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+.pngcontainerHeads {
+  background-image: url(images/ukheads.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: var(--coinsize) var(--coinsize);
+  width: var(--tilesize);
+  height: var(--tilesize);
+}
+
+.pngcontainerTails {
+  background-image: url(images/twretro.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: var(--coinsize) var(--coinsize);
+  width: var(--tilesize);
+  height: var(--tilesize);
+}
+
+.pngcontainerHeadsKey {
+  background-image: url(images/key.png), url(images/ukheads.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: var(--keysize) var(--keysize), var(--coinsize) var(--coinsize);
+  width: var(--tilesize);
+  height: var(--tilesize);
+}
+
+.pngcontainerTailsKey {
+  background-image: url(images/key.png), url(images/twretro.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: var(--keysize) var(--keysize), var(--coinsize) var(--coinsize);
+  width: var(--tilesize);
+  height: var(--tilesize);
+}
+
+.bgDefault {
+  background-color: var(--bgcolor);
+}
+
+.bgPrison {
+  background-color: var(--bgcolor);
+  background-image: url("images/prison.png");
+}
+
+.bgGetOutOfJail {
+  background-color: var(--bgcolor);
+  background-image: url("images/getoutofjail.png");
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="uktw.css">
+<script src="prisonerschessboard.js"></script>
+
+</head>
+
+<body>
+
+<center><h1>Prisoner's Chessboard</h1></center>
+
+<div id="background" class="bgDefault">
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<center><table id="board"></table></center>
+
+<p>&nbsp;</p>
+
+<center>
+  <table style="overflow-x:auto">
+    <tr><td><center><h3 id="mode">mode</h3></center></td></tr>
+    <tr><td><center>
+      <table style="border:0px">
+        <tr>
+          <td><button onclick="prevMode()" id="prev">prevText</button></td>
+          <td><p onclick="prevMode()" style="font-size:24px;" id="prevArrow">&#8678;</p></td>
+          <td><b id="instructions">instructions</b></td>
+          <td><p onclick="nextMode()" style="font-size:24px;" id="nextArrow">&#8680;</p></td>
+          <td><button onclick="nextMode()" id="next">nextText</button></td>
+        </tr>
+      </table>
+    </center></td></tr>
+  </table>
+</center>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</div>
+
+<script>
+
+initTable();
+//updateAllSquareImages();
+mode = 0;
+setMode();
+
+</script>
+
+</body>
+
+</html>
