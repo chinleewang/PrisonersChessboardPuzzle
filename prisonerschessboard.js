@@ -99,7 +99,8 @@ function clickSquare(obj) {  //change name for all click actions
 function initTable() {
   let table = document.getElementById("board");
   let tabcolor2 = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tabcolor2");
-
+  tabcolor2 = #012169;
+  
   for (let i = 0; i < size; i++) {
     let row = table.insertRow();
     board.push([]);
