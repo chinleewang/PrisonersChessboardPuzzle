@@ -1,3 +1,16 @@
+const params = new URLSearchParams(window.location.search);
+
+var el = document.createElement("link");
+el.type = "text/css";
+el.rel = "stylesheet";
+if (params.has("style")) {
+  el.href = params.get("style") + ".css";
+}
+else {
+  el.href = "default.css";
+}
+document.getElementsByTagName("head")[0].appendChild(el);
+
 const modes = 
   [
     {mode:"Warden Flipping Coins",
@@ -99,7 +112,7 @@ function clickSquare(obj) {  //change name for all click actions
 function initTable() {
   let table = document.getElementById("board");
   //let tabcolor2 = getComputedStyle(document.querySelector(":root")).getPropertyValue("--tabcolor2");
-  let tabcolor2 = "#012169";
+  let tabcolor2 = "#DEB887";
   
   for (let i = 0; i < size; i++) {
     let row = table.insertRow();

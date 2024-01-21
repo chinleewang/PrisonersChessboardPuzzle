@@ -1,0 +1,53 @@
+body {
+  background-color: #8096b1;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+table {
+  border: 2px solid;
+}
+th, td {
+  border-collapse: collapse;
+}
+.pngcontainerHeads {
+  background-image: url(images/ucbheads.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.pngcontainerTails {
+  background-image: url(images/ucbtails.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.pngcontainerHeadsKey {
+  background-image: url(images/key.png), url(images/ucbheads.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 90px 90px, 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.pngcontainerTailsKey {
+  background-image: url(images/key.png), url(images/ucbtails.png);
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 90px 90px, 80px 80px;
+  width: 100px;
+  height: 100px;
+}
+.bgDefault {
+  background-color: #8096b1;
+}
+.bgPrison {
+  background-color: #8096b1;
+  background-image: url("images/prison.png");
+}
+.bgGetOutOfJail {
+  background-color: #8096b1;
+  background-image: url("images/getoutofjail.png");
+}
